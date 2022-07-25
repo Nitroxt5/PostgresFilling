@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "postgresfilling"
+version = "0.1.0"
+description = ""
+authors = ["Nitroxt5 <filippov.maxim52@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Faker = "^13.15.1"
+psycopg2 = "^2.9.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+pytest-cov = "^3.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
