@@ -2,14 +2,14 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import psycopg2
 import psycopg2.extensions
 
-from .credentials import user, password, host, port, prod_db
+from credentials import user, password, host, port, prod_db
 from db.operations import get_posts, insert_post, clear_posts_table
 from post.post_generator import generate_post
 from utils import time_counter
 
 
 def main():
-    post_count = 100
+    post_count = 160
     thread_count = 4
     with psycopg2.connect(user=user, password=password, host=host, port=port, database=prod_db) as conn:
         # conn.set_session(isolation_level=psycopg2.extensions.ISOLATION_LEVEL_READ_COMMITTED)

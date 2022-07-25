@@ -2,4 +2,4 @@
 
 ---
 
-This repository contains an example of filling db, using pool of threads, with some unit tests. 
+This repository contains an example of working with PostgreSQL DB, using pool of threads, with some unit tests. 
