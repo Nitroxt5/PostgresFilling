@@ -34,7 +34,10 @@ def insert_post(conn, post: Post):
 def add_like_to_the_latest_post(conn):
     cursor = conn.cursor()
     post_id = get_latest_post_id(conn)
-    cursor.execute(f"UPDATE posts SET likes = likes + 1 WHERE id = {post_id}")
+    # cursor.execute(f"UPDATE posts SET likes = likes + 1 WHERE id = {post_id}")
+    cursor.execute(f"SELECT likes FROM posts WHERE id = {post_id} FOR UPDATE")
+    likes = cursor.fetchone()[0]
+    cursor.execute(f"UPDATE posts SET likes = {likes + 1} WHERE id = {post_id}")
 
 
 @commit
