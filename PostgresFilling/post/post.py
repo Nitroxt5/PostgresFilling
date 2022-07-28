@@ -17,7 +17,7 @@ class Post:
                 f"likes count: {self._likes}")
 
     def to_tuple(self):
-        return self._name, self._author, self._description, str(self._created_at), self._likes
+        return self._name, self._author, self._description, self._created_at, self._likes
 
     @property
     def name(self):
