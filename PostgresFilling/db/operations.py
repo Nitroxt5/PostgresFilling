@@ -35,17 +35,13 @@ def insert_post(conn: Connection, post: Post):
 
 
 @commit(times_to_repeat=10, repeat_in=0.1)
-def add_like_to_the_latest_post(conn: Connection, cursor: Cursor, thread_num: int, call_num: int):
-    cursor.execute("SELECT * FROM posts ORDER BY id DESC LIMIT 1 FOR UPDATE")
-    post_id = cursor.fetchone()
-    if post_id is None or post_id[0] is None:
-        raise BadFetch(thread_num, call_num)
-    cursor.execute("SELECT likes FROM posts WHERE id = (%s)", (post_id[0],))
-    likes = cursor.fetchone()
-    if likes is None or likes[0] is None:
-        raise BadFetch(thread_num, call_num)
-    cursor.execute("UPDATE posts SET likes = (%s) WHERE id = (%s)", (likes[0] + 1, post_id[0]))
-    # cursor.execute(f"UPDATE posts SET likes = likes + 1 WHERE id = {post_id}")
+def add_like_to_the_latest_post(conn: Connection, thread_num: int, call_num: int):
+    with conn.cursor() as cursor:
+        cursor.execute("SELECT * FROM posts ORDER BY id DESC LIMIT 1 FOR UPDATE")
+        post_id = cursor.fetchone()
+        if post_id is None or post_id[0] is None:
+            raise BadFetch(thread_num, call_num)
+        cursor.execute(f"UPDATE posts SET likes = likes + 1 WHERE id = (%s)", (post_id[0],))
 
 
 @commit()
