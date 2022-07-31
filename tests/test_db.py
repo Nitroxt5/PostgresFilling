@@ -37,7 +37,7 @@ def test_add_like_to_the_latest_post(db_conn):
     insert_post(db_conn, Post("dfb", "adsda", "bfdg", date(2012, 4, 12), 50))
 
     with db_conn.cursor() as cursor:
-        add_like_to_the_latest_post(db_conn, cursor, 0, 0)
+        add_like_to_the_latest_post(db_conn, 0, 0)
         post_id = get_latest_post_id(db_conn)
         cursor.execute(f"SELECT likes FROM posts WHERE id = {post_id}")
         likes = cursor.fetchone()[0]
